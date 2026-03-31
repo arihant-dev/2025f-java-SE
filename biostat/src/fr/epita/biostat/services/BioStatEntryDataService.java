@@ -15,6 +15,7 @@ public class BioStatEntryDataService {
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("""
                         CREATE TABLE BIOSTATS (
+                            id int,
                             name varchar(255),
                             sex char,
                             age int
@@ -41,20 +42,37 @@ public class BioStatEntryDataService {
         try (Connection connection = getConnection()) {
             String insertQuery = """
                     
-                       INSERT INTO BIOSTATS(name, sex, age) values (?, ?, ?)
+                       INSERT INTO BIOSTATS(id,name, sex, age) values (?, ?, ?, ?)
                     
                     """;
             PreparedStatement insertStatement = connection.prepareStatement(
                     insertQuery);
             //TODO set parameters
-            insertStatement.setString(1, entry.getName());
+            insertStatement.setInt(1, entry.getId());
+            insertStatement.setString(2, entry.getName());
+            insertStatement.setString(3, entry.getSex());
+            insertStatement.setInt(4, entry.getAge());
             insertStatement.execute();
         }
 
     }
 
-    public void update(BioStatEntry entry) {
+    public void update(BioStatEntry entry) throws SQLException {
+        try (Connection connection = getConnection()) {
+            String updateQuery = """
+                    
+                   UPDATE BIOSTATS SET age=?, name=?, sex=? WHERE id=?
+                    
+                    """;
+            PreparedStatement insertStatement = connection.prepareStatement(
+                    updateQuery);
 
+            insertStatement.setInt(1, entry.getAge());
+            insertStatement.setString(2, entry.getName());
+            insertStatement.setString(3, entry.getSex());
+            insertStatement.setInt(4, entry.getId());
+            insertStatement.execute();
+        }
     }
 
     public void delete(BioStatEntry entry) {

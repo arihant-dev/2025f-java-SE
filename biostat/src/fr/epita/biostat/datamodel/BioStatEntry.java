@@ -1,7 +1,10 @@
 package fr.epita.biostat.datamodel;
 
 public class BioStatEntry {
+    private Integer id;
     private String name;
+
+
     private String sex;
     private Integer age;
     private Integer height;
@@ -55,4 +58,13 @@ public class BioStatEntry {
     public void setWeight(Integer weight) {
         this.weight = weight;
     }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 }
