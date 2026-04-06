@@ -1,14 +1,13 @@
 package fr.epita.biostat.services;
 
 import fr.epita.biostat.datamodel.BioStatEntry;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class BioStatEntryDataService {
 
-
+    // TODO: make this class a singleton
     public BioStatEntryDataService() throws SQLException {
         try (Connection connection = getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement("""
@@ -27,6 +26,7 @@ public class BioStatEntryDataService {
 
     }
 
+    // Create a configuration service - a singleton service
     private static Connection getConnection() throws SQLException {
         return DriverManager.getConnection("jdbc:h2:mem:test;DB_ClOSE_DELAY=-1");
     }
@@ -76,7 +76,6 @@ public class BioStatEntryDataService {
                     """;
             PreparedStatement insertStatement = connection.prepareStatement(
                     insertQuery);
-            //TODO set parameters
             insertStatement.setInt(1, entry.getId());
             insertStatement.setString(2, entry.getName());
             insertStatement.setString(3, entry.getSex());
@@ -105,7 +104,20 @@ public class BioStatEntryDataService {
     }
 
     public void delete(BioStatEntry entry) {
+        try (Connection connection = getConnection()) {
+            String deleteQuery = """
+                    
+                   DELETE FROM BIOSTATS WHERE id=?
+                    
+                    """;
+            PreparedStatement insertStatement = connection.prepareStatement(
+                    deleteQuery);
 
+            insertStatement.setInt(1, entry.getId());
+            insertStatement.execute();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
     }
 
 

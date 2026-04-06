@@ -56,6 +56,5 @@ public class DBTest {
 
 
         connection.close();
-        //     DriverManager.getConnection("jdbc:mysql://localhost:3306/test");
     }
 }

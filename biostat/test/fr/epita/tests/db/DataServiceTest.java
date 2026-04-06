@@ -9,6 +9,7 @@ import java.util.List;
 public class DataServiceTest {
 
     public static void main(String[] args) throws SQLException {
+        // Use sysyem.get -> edit the run configuration use -Dconfig.file.path=S:\Work\ae\Epita.........
         BioStatEntryDataService service = new BioStatEntryDataService();
         BioStatEntry entry = new BioStatEntry("Thomas", "M", 39, null, null);
         entry.setId(1);
@@ -24,8 +25,5 @@ public class DataServiceTest {
 
         results = service.search(qbe);
         System.out.println(results);
-
-
-        //     DriverManager.getConnection("jdbc:mysql://localhost:3306/test");
     }
 }
