@@ -4,6 +4,7 @@ import fr.epita.biostat.datamodel.BioStatEntry;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class BioStatEntryDataService {
 
@@ -28,7 +29,11 @@ public class BioStatEntryDataService {
 
     // Create a configuration service - a singleton service
     private static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection("jdbc:h2:mem:test;DB_ClOSE_DELAY=-1");
+
+        ConfigurationService service = ConfigurationService.getInstance();
+        return DriverManager.getConnection(service.getConfValue("db.url"),
+                service.getConfValue("db.user"),
+                service.getConfValue("db.password"));
     }
 
     public List<BioStatEntry> search(BioStatEntry qbe) throws SQLException {

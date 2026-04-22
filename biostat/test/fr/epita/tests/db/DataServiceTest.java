@@ -3,13 +3,15 @@ package fr.epita.tests.db;
 import fr.epita.biostat.datamodel.BioStatEntry;
 import fr.epita.biostat.services.BioStatEntryDataService;
 
-import java.sql.*;
+import java.sql.SQLException;
 import java.util.List;
 
 public class DataServiceTest {
 
     public static void main(String[] args) throws SQLException {
-        // Use sysyem.get -> edit the run configuration use -Dconfig.file.path=S:\Work\ae\Epita.........
+        // Use system property "conf.file.path" to specify the configuration file path
+        // e.g., -Dconf.file.path=biostat/conf.properties
+        // System.setProperty("conf.file.path", "path/to/conf.properties");
         BioStatEntryDataService service = new BioStatEntryDataService();
         BioStatEntry entry = new BioStatEntry("Thomas", "M", 39, null, null);
         entry.setId(1);
